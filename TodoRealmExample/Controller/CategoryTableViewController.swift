@@ -12,15 +12,16 @@ class CategoryTableViewController: UITableViewController {
     
     let realm = try! Realm()
     
-    var categories = [Category]()
+    var categories: Results<Category>?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        load()
     }
 
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return categories.count
+        return categories?.count ?? 1
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -28,7 +29,7 @@ class CategoryTableViewController: UITableViewController {
 
         var content = cell.defaultContentConfiguration()
         
-        content.text = categories[indexPath.row].name
+        content.text = categories?[indexPath.row].name ?? "No Categories added yet"
         
         cell.contentConfiguration = content
 
@@ -51,7 +52,6 @@ class CategoryTableViewController: UITableViewController {
             let newCategory = Category()
             newCategory.name = textField.text ?? "nil"
             
-            self.categories.append(newCategory)
             self.save(category: newCategory)
         }
         
@@ -69,6 +69,11 @@ class CategoryTableViewController: UITableViewController {
         } catch {
             print("Error saving category: \(error)")
         }
+        tableView.reloadData()
+    }
+    
+    func load() {
+        categories = realm.objects(Category.self)
         tableView.reloadData()
     }
     
