@@ -40,6 +40,29 @@ class CategoryTableViewController: UITableViewController {
         performSegue(withIdentifier: "goToItems", sender: self)
     }
     
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            
+            if let category = categories?[indexPath.row] {
+                do {
+                    try realm.write {
+                        realm.delete(category.items)
+                        realm.delete(category)
+                    }
+                } catch {
+                    print("Error deleting data: \(error)")
+                }
+            }
+            
+            
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destinationVC = segue.destination as! ItemsTableViewController
         
@@ -71,8 +94,6 @@ class CategoryTableViewController: UITableViewController {
         
         present(alert, animated: true)
     }
-    
-    
     
     func save(category: Category) {
         do {
