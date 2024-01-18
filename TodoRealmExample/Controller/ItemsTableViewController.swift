@@ -49,7 +49,20 @@ class ItemsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
+        
+        if let item = todoItems?[indexPath.row] {
+            do {
+                try realm.write {
+                    item.done = !item.done
+                }
+            } catch {
+                print("Error saving done status: \(error)")
+            }
+        }
+        
+        tableView.reloadData()
+        
+//        tableView.deselectRow(at: indexPath, animated: true) ?????
     }
     
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
