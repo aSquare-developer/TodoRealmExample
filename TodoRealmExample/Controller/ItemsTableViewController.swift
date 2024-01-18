@@ -81,6 +81,7 @@ class ItemsTableViewController: UITableViewController {
                     try self.realm.write {
                         let newItem = Item()
                         newItem.title = textfield.text ?? "nil"
+                        newItem.dateCreated = Date()
                         currentCategory.items.append(newItem)
                     }
                 } catch {
@@ -120,5 +121,31 @@ class ItemsTableViewController: UITableViewController {
     func load() {
         todoItems = selectedCategory?.items.sorted(byKeyPath: "title", ascending: true)
         tableView.reloadData()
+    }
+}
+
+extension ItemsTableViewController: UISearchBarDelegate {
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+        guard let searchBarText = searchBar.text else { return }
+        
+        todoItems = todoItems?.filter("title CONTAINS[cd] %@", searchBarText).sorted(byKeyPath: "dateCreated", ascending: true)
+        
+        tableView.reloadData()
+        
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        guard let searchBarText = searchBar.text else { return }
+        
+        if searchBarText.count == 0 {
+            load()
+            
+            DispatchQueue.main.async {
+                searchBar.resignFirstResponder()
+            }
+        }
     }
 }
