@@ -7,7 +7,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Data-->
+        <!--Categories-->
         <scene sceneID="amK-Gb-3lM">
             <objects>
                 <tableViewController id="mvQ-dZ-6UR" customClass="CategoryTableViewController" customModule="TodoRealmExample" customModuleProvider="target" sceneMemberID="viewController">
@@ -30,17 +30,55 @@
                             <outlet property="delegate" destination="mvQ-dZ-6UR" id="k3c-Zd-h9h"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Data" id="uZP-L4-NBz">
+                    <navigationItem key="navigationItem" title="Categories" id="uZP-L4-NBz">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="qEV-t9-o77">
                             <connections>
                                 <action selector="addButtonPressed:" destination="mvQ-dZ-6UR" id="Sqv-5K-2kS"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <segue destination="EBX-mo-6SF" kind="show" identifier="goToItems" id="fzO-HD-ZNI"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9FS-xy-Ol4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1811.4503816793892" y="-3.5211267605633805"/>
+        </scene>
+        <!--Items Table View Controller-->
+        <scene sceneID="aDW-BB-oJy">
+            <objects>
+                <tableViewController id="EBX-mo-6SF" customClass="ItemsTableViewController" customModule="TodoRealmExample" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="rte-uK-igP">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="itemCell" id="ARm-Zu-O51">
+                                <rect key="frame" x="0.0" y="50" width="393" height="43.666667938232422"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ARm-Zu-O51" id="xj3-yq-AhC">
+                                    <rect key="frame" x="0.0" y="0.0" width="393" height="43.666667938232422"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="EBX-mo-6SF" id="qyw-ac-Fsj"/>
+                            <outlet property="delegate" destination="EBX-mo-6SF" id="IhH-jF-q8K"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="xrW-by-yCb">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="cTK-vy-hc2">
+                            <connections>
+                                <action selector="addButtonPressed:" destination="EBX-mo-6SF" id="VsT-o3-aLC"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Nux-xW-rj3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2695" y="-4"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="0PU-dK-ge0">

@@ -35,6 +35,18 @@ class CategoryTableViewController: UITableViewController {
 
         return cell
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "goToItems", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destinationVC = segue.destination as! ItemsTableViewController
+        
+        if let indexPath = tableView.indexPathForSelectedRow {
+            destinationVC.selectedCategory = categories?[indexPath.row]
+        }
+    }
 
     // MARK: - IBAction's
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
@@ -59,6 +71,8 @@ class CategoryTableViewController: UITableViewController {
         
         present(alert, animated: true)
     }
+    
+    
     
     func save(category: Category) {
         do {

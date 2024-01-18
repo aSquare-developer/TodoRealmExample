@@ -17,6 +17,7 @@
 		7557A71C2B5483DE007B81FE /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 7557A71B2B5483DE007B81FE /* RealmSwift */; };
 		7557A7232B55D6DF007B81FE /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7557A7222B55D6DF007B81FE /* Item.swift */; };
 		7557A7252B55D6E8007B81FE /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7557A7242B55D6E8007B81FE /* Category.swift */; };
+		7557A7272B5880C4007B81FE /* ItemsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7557A7262B5880C4007B81FE /* ItemsTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		7557A7162B548293007B81FE /* CategoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableViewController.swift; sourceTree = "<group>"; };
 		7557A7222B55D6DF007B81FE /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		7557A7242B55D6E8007B81FE /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		7557A7262B5880C4007B81FE /* ItemsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +90,7 @@
 			isa = PBXGroup;
 			children = (
 				7557A7162B548293007B81FE /* CategoryTableViewController.swift */,
+				7557A7262B5880C4007B81FE /* ItemsTableViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -181,6 +184,7 @@
 			files = (
 				7557A7232B55D6DF007B81FE /* Item.swift in Sources */,
 				7557A7252B55D6E8007B81FE /* Category.swift in Sources */,
+				7557A7272B5880C4007B81FE /* ItemsTableViewController.swift in Sources */,
 				75340A0F2B54821400F2B93D /* AppDelegate.swift in Sources */,
 				7557A7172B548293007B81FE /* CategoryTableViewController.swift in Sources */,
 				75340A112B54821400F2B93D /* SceneDelegate.swift in Sources */,
