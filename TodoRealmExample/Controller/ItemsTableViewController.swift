@@ -50,13 +50,18 @@ class ItemsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         if let item = todoItems?[indexPath.row] {
+            
             do {
                 try realm.write {
-                    item.done = !item.done
+                    item.done.toggle()
+                    if item.done {
+                        item.count += 1
+                    }
                 }
             } catch {
-                print("Error saving done status: \(error)")
+                print("Error editing item: \(error)")
             }
+            
         }
         
         tableView.reloadData()
@@ -119,7 +124,7 @@ class ItemsTableViewController: UITableViewController {
     }
     
     func load() {
-        todoItems = selectedCategory?.items.sorted(byKeyPath: "title", ascending: true)
+        todoItems = selectedCategory?.items.sorted(byKeyPath: "count", ascending: false)
         tableView.reloadData()
     }
 }
