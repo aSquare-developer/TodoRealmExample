@@ -130,3 +130,28 @@ class CategoryTableViewController: UITableViewController {
     }
     
 }
+
+extension CategoryTableViewController: UISearchBarDelegate {
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+        guard let searchBarText = searchBar.text else { return }
+        
+        categories = categories?.filter("name CONTAINS[cd] %@", searchBarText)
+        
+        tableView.reloadData()
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        guard let searchBarText = searchBar.text else { return }
+        
+        if searchBarText.count == 0 {
+            load()
+            
+            DispatchQueue.main.async {
+                searchBar.resignFirstResponder()
+            }
+        }
+    }
+}
