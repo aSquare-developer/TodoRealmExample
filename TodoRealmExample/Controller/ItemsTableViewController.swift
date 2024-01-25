@@ -64,41 +64,8 @@ class ItemsTableViewController: UITableViewController {
             
         }
         
+        tableView.deselectRow(at: indexPath, animated: true)
         tableView.reloadData()
-        
-//        tableView.deselectRow(at: indexPath, animated: true) ?????
-    }
-    
-    @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
-        
-        var textfield = UITextField()
-        
-        let alert = UIAlertController(title: "Create new item", message: "", preferredStyle: .alert)
-        
-        alert.addTextField { input in
-            input.placeholder = "Type item name..."
-            textfield = input
-        }
-        
-        let save = UIAlertAction(title: "Save", style: .default) { action in
-            if let currentCategory = self.selectedCategory {
-                do {
-                    try self.realm.write {
-                        let newItem = Item()
-                        newItem.title = textfield.text ?? "nil"
-                        newItem.dateCreated = Date()
-                        currentCategory.items.append(newItem)
-                    }
-                } catch {
-                    print("Error saving new item: \(error)")
-                }
-            }
-            self.tableView.reloadData()
-        }
-        
-        alert.addAction(save)
-        
-        present(alert, animated: true)
     }
     
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -120,7 +87,53 @@ class ItemsTableViewController: UITableViewController {
             
             
             tableView.deleteRows(at: [indexPath], with: .fade)
+            tableView.reloadData()
         }
+    }
+    
+    @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
+        
+        var textfield = UITextField()
+        
+        let alert = UIAlertController(title: "Create new item", message: "", preferredStyle: .alert)
+        
+        alert.addTextField { input in
+            input.placeholder = "Type item name..."
+            textfield = input
+        }
+        
+        let save = UIAlertAction(title: "Save", style: .default) { action in
+            
+            guard let
+                    itemName = textfield.text?.trimmingCharacters(in: .whitespacesAndNewlines),
+                    !itemName.isEmpty
+            else {
+                return
+            }
+            
+            if let currentCategory = self.selectedCategory {
+                do {
+                    try self.realm.write {
+                        let newItem = Item()
+                        newItem.title = itemName
+                        newItem.dateCreated = Date()
+                        currentCategory.items.append(newItem)
+                    }
+                } catch {
+                    print("Error saving new item: \(error)")
+                }
+            }
+            self.tableView.reloadData()
+        }
+        
+        let cancel = UIAlertAction(title: "Cancel", style: .destructive) { action in
+            alert.dismiss(animated: true)
+        }
+        
+        alert.addAction(cancel)
+        alert.addAction(save)
+        
+        present(alert, animated: true)
     }
     
     func load() {

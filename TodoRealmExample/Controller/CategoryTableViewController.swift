@@ -63,6 +63,7 @@ class CategoryTableViewController: UITableViewController {
             
             
             tableView.deleteRows(at: [indexPath], with: .fade)
+            tableView.reloadData()
         }
     }
     
@@ -87,12 +88,25 @@ class CategoryTableViewController: UITableViewController {
         }
         
         let create = UIAlertAction(title: "Create", style: .default) { action in
+            
+            guard let
+                    categoryName = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines),
+                    !categoryName.isEmpty
+            else {
+                return
+            }
+            
             let newCategory = Category()
-            newCategory.name = textField.text ?? "nil"
+            newCategory.name = categoryName
             
             self.save(category: newCategory)
         }
         
+        let cancel = UIAlertAction(title: "Cancel", style: .destructive) { action in
+            alert.dismiss(animated: true)
+        }
+        
+        alert.addAction(cancel)
         alert.addAction(create)
         
         present(alert, animated: true)
